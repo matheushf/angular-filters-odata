@@ -1,0 +1,23 @@
+<span *ngIf="filtro" [hidden]="filtro.visivel === false" class="filtros pull-right">
+
+  <span *ngIf="!filtro.tipo || filtro.tipo === 'select'" class="input-group mr-10">
+    <filtro-select [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-select>
+  </span>
+
+  <span *ngIf="filtro.tipo === 'pesquisavel'" class="mr-10" [class.input-group]="filtro.subtipo !== 'input'" [class.subtipo-input]="filtro.subtipo === 'input'">
+    <filtro-pesquisavel [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)" (callbackMontarValores)="montarValores($event.filtro, $event.processoId)"
+      [valorPadrao]="pesquisavelValorPadrao"></filtro-pesquisavel>
+  </span>
+
+  <span *ngIf="filtro.tipo === 'switch' || filtro.tipo === 'switch-tab'" class="mr-10">
+    <filtro-switch [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-switch>
+  </span>
+
+  <span *ngIf="filtro.tipo === 'switch-dropdown'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+    <filtro-switch-dropdown [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-switch-dropdown>
+  </span>
+
+  <span *ngIf="filtro.tipo === 'data'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+    <filtro-data [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-data>
+  </span>
+</span>

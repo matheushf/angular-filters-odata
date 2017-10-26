@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'filtro-switch-dropdown',
+  selector: 'app-filtro-switch-dropdown',
   template: require('./switch-dropdown.component.html'),
-  styles: [require('./switch-dropdown.component.scss'), require('../../tabela-dinamica/tabela-dinamica.scss')],
+  styles: [require('./switch-dropdown.component.scss')],
 })
 export class SwitchDropdownComponent implements OnInit {
 
-  @Input('filtro') filtroTemp: any = {};
-  filtro: any = {};
+  @Input('filter') filtroTemp: any = {};
+  filter: any = {};
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   constructor() {
   }
@@ -17,11 +17,11 @@ export class SwitchDropdownComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.filtro = this.filtroTemp;
+    this.filter = this.filtroTemp;
   }
 
-  selecionaFiltro(filtro, novoSelecionado) {
-    this.callback.emit({filtro, novoSelecionado});
+  selectFilter(filter, newSelected) {
+    this.callback.emit({ filter, newSelected });
   }
 
 }

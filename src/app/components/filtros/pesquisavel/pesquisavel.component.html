@@ -1,13 +1,13 @@
 <div *ngIf="filtro.subtipo === 'select-input'" class="input-group">
 
-  <!-- Com valor padrao -->
+  <!-- Com valor default -->
   <dx-select-box *ngIf="valorPadrao" [items]="filtro.valores" displayExpr="desc" valueExpr="valor" (onKeyUp)="filtrarPesquisa($event)"
-    (onValueChanged)="selecionaFiltro(filtro, {valor: $event.value, desc: $event.value})" [searchEnabled]="true" [searchTimeout]="800"
+    (onValueChanged)="selectFilter(filter, {valor: $event.value, desc: $event.value})" [searchEnabled]="true" [searchTimeout]="800"
     placeholder="Escolha..." showClearButton="true" [value]="valorPadrao"></dx-select-box>
 
-  <!-- Sem valor padrao ba dum tss -->
+  <!-- Sem valor default ba dum tss -->
   <dx-select-box *ngIf="!valorPadrao" [items]="filtro.valores" displayExpr="desc" valueExpr="valor" (onKeyUp)="filtrarPesquisa($event)"
-    (onValueChanged)="selecionaFiltro(filtro, {valor: $event.value, desc: $event.value})" [searchEnabled]="true" [searchTimeout]="800"
+    (onValueChanged)="selectFilter(filter, {valor: $event.value, desc: $event.value})" [searchEnabled]="true" [searchTimeout]="800"
     placeholder="Escolha..." showClearButton="true"></dx-select-box>
 
 </div>

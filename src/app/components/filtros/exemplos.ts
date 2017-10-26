@@ -13,12 +13,12 @@ let config = {
     /* Switch */
     {
       desc: 'Situacao',
-      tipo: 'switch',
+      type: 'switch',
       valores: [
         {
           desc: 'Ativo',
           valor: 'A',
-          padrao: true
+          default: true
         },
         {
           desc: 'Inativo',
@@ -27,7 +27,7 @@ let config = {
       ]
     }, {
       desc: 'Situacao',
-      tipo: 'switch',
+      type: 'switch',
       collapsed: true,
       valores: [
         {
@@ -37,7 +37,7 @@ let config = {
       ]
     }, {
       desc: 'Situacao',
-      tipo: 'switch',
+      type: 'switch',
       collapsed: true,
       valores: [
         {
@@ -50,7 +50,7 @@ let config = {
     {
       desc: 'Tipo Cliente',
       coluna: 'TipoPessoa',
-      tipo: 'switch-dropdown',
+      type: 'switch-dropdown',
       collapsed: true,
       valores: [
         {
@@ -68,12 +68,12 @@ let config = {
       ]
     }, {
       desc: 'Situacao',
-      tipo: 'switch-dropdown',
+      type: 'switch-dropdown',
       valores: [
         {
           desc: 'Ativo',
           valor: `eq 'A'`,
-          padrao: true,
+          default: true,
         },
         {
           desc: 'Inativo',
@@ -85,12 +85,12 @@ let config = {
     /* Switch odata */
     {
       desc: 'Situacao',
-      tipo: 'switch',
+      type: 'switch',
       valores: [
         {
           desc: 'Ativo',
           valor: ` Situacao eq 'A' `,
-          // padrao: true
+          // default: true
         },
         {
           desc: 'Suspensa',
@@ -107,13 +107,13 @@ let config = {
     {
       desc: 'DataVencimento',
       label: 'Data Vencimento',
-      tipo: 'data',
+      type: 'data',
     },
     /*  Pesquisavel */
     {
       desc: 'Cliente',
       coluna: 'PessoaId',
-      tipo: 'pesquisavel',
+      type: 'pesquisavel',
       subtipo: 'select-input',
       valoresSource: {
         url: '/Pessoas/ObterTodos',
@@ -127,12 +127,12 @@ let config = {
     /* Pesquisavel (odata) */
     {
       desc: 'Pesquisa',
-      tipo: 'pesquisavel',
+      type: 'pesquisavel',
       subtipo: 'input',
       campos: [{
         desc: 'Nome',
         coluna: 'PrimeiroNome',
-        padrao: true
+        default: true
       }, {
         desc: 'Email',
         coluna: 'Email'
@@ -144,7 +144,7 @@ let config = {
     {
       desc: 'Cliente',
       coluna: 'PessoaId',
-      tipo: 'pesquisavel',
+      type: 'pesquisavel',
       subtipo: 'select-input',
       operador: 'eq',
       // collapsed: true,
@@ -162,7 +162,7 @@ let config = {
     {
       desc: 'Teste Select',
       coluna: 'Estado',
-      tipo: 'select',
+      type: 'select',
       valores: ['GO', 'BA', 'PA']
     }
   ],

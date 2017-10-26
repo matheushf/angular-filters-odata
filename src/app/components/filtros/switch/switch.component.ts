@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SwitchComponent implements OnInit {
 
-  @Input('filtro') filtro: any = {};
+  @Input('filter') filter: any = {};
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   constructor() {
   }
@@ -15,8 +15,8 @@ export class SwitchComponent implements OnInit {
   ngOnInit() {
   }
 
-  selecionaFiltro(filtro, novoSelecionado) {
-    this.callback.emit({ filtro, novoSelecionado });
+  selectFilter(filter, newSelected) {
+    this.callback.emit({ filter, newSelected });
   }
 
 }

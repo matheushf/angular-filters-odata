@@ -7,15 +7,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SelectComponent implements OnInit {
 
-  @Input('filtro') filtro: any;
+  @Input('filter') filter: any;
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
     // Montar o valor, caso tenha passado apenas um array sem objetos
-    this.filtro.valores.map((valor, index) => {
+    this.filter.valores.map((valor, index) => {
       if (!valor.desc) {
-        this.filtro.valores[index] = {
+        this.filter.valores[index] = {
           desc: valor,
           valor: valor
         };
@@ -23,18 +23,18 @@ export class SelectComponent implements OnInit {
     });
   }
 
-  selecionaFiltro(filtro, novoSelecionado) {
+  selectFilter(filter, newSelected) {
 
-    novoSelecionado = {
-      desc: novoSelecionado,
-      valor: novoSelecionado
+    newSelected = {
+      desc: newSelected,
+      valor: newSelected
     };
 
     if (filtro.odata) {
-      novoSelecionado.valor = ` ${filtro.coluna} eq '${novoSelecionado.valor}' `;
+      newSelected.valor = ` ${filtro.coluna} eq '${newSelected.valor}' `;
     }
 
-    this.callback.emit({ filtro, novoSelecionado });
+    this.callback.emit({ filter, newSelected });
   }
 
 }

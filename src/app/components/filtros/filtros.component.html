@@ -1,23 +1,23 @@
-<span *ngIf="filtro" [hidden]="filtro.visivel === false" class="filtros pull-right">
+<span *ngIf="filter" [hidden]="filtro.visible === false" class="filtros pull-right">
 
-  <span *ngIf="!filtro.tipo || filtro.tipo === 'select'" class="input-group mr-10">
-    <filtro-select [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-select>
+  <span *ngIf="!filtro.type || filtro.type === 'select'" class="input-group mr-10">
+    <filtro-select [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></filtro-select>
   </span>
 
-  <span *ngIf="filtro.tipo === 'pesquisavel'" class="mr-10" [class.input-group]="filtro.subtipo !== 'input'" [class.subtipo-input]="filtro.subtipo === 'input'">
-    <filtro-pesquisavel [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)" (callbackMontarValores)="montarValores($event.filtro, $event.processoId)"
+  <span *ngIf="filtro.type === 'pesquisavel'" class="mr-10" [class.input-group]="filtro.subtipo !== 'input'" [class.subtipo-input]="filtro.subtipo === 'input'">
+    <filtro-pesquisavel [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" (callbackMontarValores)="montarValores($event.filter, $event.processId)"
       [valorPadrao]="pesquisavelValorPadrao"></filtro-pesquisavel>
   </span>
 
-  <span *ngIf="filtro.tipo === 'switch' || filtro.tipo === 'switch-tab'" class="mr-10">
-    <filtro-switch [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-switch>
+  <span *ngIf="filtro.type === 'switch' || filtro.type === 'switch-tab'" class="mr-10">
+    <filtro-switch [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></filtro-switch>
   </span>
 
-  <span *ngIf="filtro.tipo === 'switch-dropdown'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
-    <filtro-switch-dropdown [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-switch-dropdown>
+  <span *ngIf="filtro.type === 'switch-dropdown'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+    <app-filtro-switch-dropdown [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></filtro-switch-dropdown>
   </span>
 
-  <span *ngIf="filtro.tipo === 'data'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
-    <filtro-data [filtro]="filtro" (callback)="selecionaFiltro($event.filtro, $event.novoSelecionado)"></filtro-data>
+  <span *ngIf="filtro.type === 'data'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+    <filtro-data [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></filtro-data>
   </span>
 </span>

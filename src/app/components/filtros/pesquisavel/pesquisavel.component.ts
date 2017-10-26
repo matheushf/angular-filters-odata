@@ -9,7 +9,7 @@ import { ApiBase } from '../../../services/login.service';
 })
 export class PesquisavelComponent implements OnInit, OnChanges {
 
-  @Input('filtro') filtro: any;
+  @Input('filter') filter: any;
   @Input('valorPadrao') valorPadrao: any;
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   @Output('callbackMontarValores') callbackMontarValores: EventEmitter<any> = new EventEmitter();
@@ -23,12 +23,12 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.label = (this.filtro.campos && this.filtro.campos[0].desc) ? this.filtro.campos[0].desc : null;
-    this.filtro.valores = (this.filtro.valores) ? this.filtro.valores : [];
+    this.label = (this.filter.campos && this.filter.campos[0].desc) ? this.filter.campos[0].desc : null;
+    this.filter.valores = (this.filter.valores) ? this.filter.valores : [];
   }
 
   ngAfterViewInit() {
-    let filtro = this.filtro;
+    let filtro = this.filter;
 
     // Se for input, não precisa de tratamento nem nada
     if (filtro.subtipo === 'input')
@@ -42,21 +42,21 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
     this.pesquisaTimeout = setTimeout(() => {
 
-      let novoSelecionado = {
+      let newSelected = {
         valor: valor,
-        desc: this.filtro.desc
+        desc: this.filter.desc
       };
 
-      this.selecionaFiltro(this.filtro, novoSelecionado);
+      this.selectFilter(this.filter, newSelected);
     }, 600);
   }
 
   // Ao mudar o campo da pesquisa (subtipo == 'input')
   selecionarCampo(coluna) {
     this.coluna = coluna;
-    this.selecionaFiltro(this.filtro, {
+    this.selectFilter(this.filter, {
       valor: $("#search-box").val(),
-      desc: this.filtro.desc
+      desc: this.filter.desc
     });
   }
 
@@ -68,7 +68,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
       return;
 
     let timer = 600;
-    let source = this.filtro.valoresSource;
+    let source = this.filter.valoresSource;
     let valorPesquisa = event.jQueryEvent.target.value;
 
     if (!valorPesquisa)
@@ -80,25 +80,25 @@ export class PesquisavelComponent implements OnInit, OnChanges {
       if (source.campoFiltro) {
         // @todo diferenciar se a busca é odata ou ObterTodos normal
         let filtrar = `&filtro=[{"Desc": "${source.campoFiltro}", "Coluna": "${source.campoFiltro}", "Valor": "${valorPesquisa}"}]`;
-        this.callbackMontarValores.emit({ filtro: filtrar, processoId: 'pesquisavel-filtrarPesquisa' });
+        this.callbackMontarValores.emit({ filter: filtrar, processId: 'pesquisavel-filtrarPesquisa' });
       }
 
     }, timer);
   }
 
-  selecionaFiltro(filtro, novoSelecionado) {
+  selectFilter(filter, newSelected) {
     if (this.valorPadrao)
-      sessionStorage.setItem(`/filtroPesquisavel-${filtro.coluna}`, JSON.stringify(novoSelecionado.valor));
+      sessionStorage.setItem(`/filtroPesquisavel-${filtro.coluna}`, JSON.stringify(newSelected.valor));
 
-    novoSelecionado.antigo = this.filtro.coluna;
+    newSelected.antigo = this.filter.coluna;
 
     // Caso tenha campo selecionado, atribuir a coluna do filtro
     if (this.coluna)
-      this.filtro.coluna = this.coluna;
+      this.filter.coluna = this.coluna;
 
     this.callback.emit({
-      filtro,
-      novoSelecionado
+      filter,
+      newSelected
     });
   }
 }

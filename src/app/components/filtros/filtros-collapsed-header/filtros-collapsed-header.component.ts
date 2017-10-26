@@ -30,20 +30,20 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
   ngOnInit() {
     let odata = (this.filtersObject.odata) ? true : false;
 
-    this.filtersObject.filters.map((filtro: Filter) => {
+    this.filtersObject.filters.map((filter: Filter) => {
       // Caso seja odata, adicionar em todos
       filtro.odata = odata;
 
       // Contar a quantidade de filtros que possuem valores padroes
       if (filtro.valores) {
-        filtro.valores.map(valor => { if (valor.padrao) this.quantFiltrosPadroes++; });
+        filtro.valores.map(valor => { if (valor.default) this.quantFiltrosPadroes++; });
       } else if (filtro.selecionadoSource) {
         this.quantFiltrosPadroes++;
       }
     });
   }
 
-  selecionaFiltro(filtro: Filter, newSelected) {
+  selectFilter(filter: Filter, newSelected) {
     let self = this;
     let column = filtro.column ? filtro.column : filtro.desc;
     let orderBy = '';
@@ -51,7 +51,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
     filtro = Object.assign({}, filtro);
     newSelected = Object.assign({}, newSelected);
 
-    newSelected = this.tratarValor(filtro, newSelected);
+    newSelected = this.tratarValor(filter, newSelected);
 
     // Remover o antigo, caso exista
     if (newSelected.antigo)
@@ -85,7 +85,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
       this.callback.emit({ filtro_url: this.filtro_url });
   }
 
-  // Saber o tipo de operador que será usado e tratar de acordo
+  // Saber o type de operador que será usado e tratar de acordo
   tratarValor(filter: Filter, newSelected) {
     if (!newSelected.valor)
       return newSelected;
@@ -110,7 +110,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
   }
 
   limparFiltros() {
-    this.filtersObject.filtros.map(value => value.selecionado = { valor: '', desc: 'Todos' });
+    this.filtersObject.filtros.map(value => value.selecionado = { valor: '', desc: 'All' });
     this.callbacklimparFiltros.emit(true);
   }
 

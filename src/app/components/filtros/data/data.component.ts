@@ -9,7 +9,7 @@ declare var moment: any;
 })
 export class DataComponent implements OnInit {
 
-  @Input('filtro') filtro: any;
+  @Input('filter') filter: any;
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   today = new Date();
   selecionado: string = '';
@@ -22,7 +22,7 @@ export class DataComponent implements OnInit {
   }
 
   ngOnChanges() {
-    if (this.filtro.subtipo === 'select') {
+    if (this.filter.subtipo === 'select') {
       this.dataSelect();
     }
   }
@@ -38,8 +38,8 @@ export class DataComponent implements OnInit {
 
   // Formatar valores para aparecer no <select></select>
   dataSelect() {
-    let quant = (this.filtro.valores.length > 0) ? this.filtro.valores[0].valor : 12;
-    let format = (this.filtro.valores.length > 0) ? this.filtro.valores[0].desc : 'MM/YYYY';
+    let quant = (this.filter.valores.length > 0) ? this.filter.valores[0].valor : 12;
+    let format = (this.filter.valores.length > 0) ? this.filter.valores[0].desc : 'MM/YYYY';
 
     let date = moment();
     date.subtract(quant, 'months');
@@ -77,21 +77,21 @@ export class DataComponent implements OnInit {
 
     this.data_inicio = this.data_inicio.utc().format();
 
-    this.selecionaFiltro();
+    this.selectFilter();
   }
 
-  selecionaFiltro() {
-    let novoSelecionado: any = {};
-    let coluna = this.filtro.coluna ? this.filtro.coluna : this.filtro.desc;
+  selectFilter() {
+    let newSelected: any = {};
+    let coluna = this.filter.coluna ? this.filter.coluna : this.filter.desc;
 
     this.data_fim = moment().utc().format();
 
-    novoSelecionado.desc = coluna;
+    newSelected.desc = coluna;
 
     // Por enquanto é só odata, quando for normal pensar em como vai enviar
-    if (this.filtro.odata)
-      novoSelecionado.valor = ` ${coluna} gt ${this.data_inicio} and ${coluna} lt ${this.data_fim} `;
+    if (this.filter.odata)
+      newSelected.valor = ` ${coluna} gt ${this.data_inicio} and ${coluna} lt ${this.data_fim} `;
 
-    this.callback.emit({ filtro: this.filtro, novoSelecionado });
+    this.callback.emit({ filter: this.filter, newSelected });
   }
 }

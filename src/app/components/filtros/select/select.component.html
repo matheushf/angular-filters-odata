@@ -4,15 +4,15 @@
     {{filtro.selecionado?.desc}}
   </button>
    <ul class="dropdown-menu">
-    <li><a (click)="selecionaFiltro(filtro)">Todos</a></li>
-    <li *ngFor="let valor of filtro.valores"><a (click)="selecionaFiltro(filtro, valor)">{{valor.desc}}</a>
+    <li><a (click)="selectFilter(filtro)">Todos</a></li>
+    <li *ngFor="let valor of filtro.valores"><a (click)="selectFilter(filter, valor)">{{valor.desc}}</a>
     </li>
   </ul>
 </div> -->
 
 <div class="form-group">
   <!-- <label>{{filtro.desc}}</label> -->
-  <select class="form-control" #select (change)="selecionaFiltro(filtro, select.value)">
+  <select class="form-control" #select (change)="selectFilter(filter, select.value)">
     <option>Todos</option>
     <option *ngFor="let valor of filtro.valores" [value]="valor.valor">{{valor.desc}}</option>
   </select>

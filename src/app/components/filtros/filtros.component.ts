@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, NgZone } from '@angular/core';
-import { Filtro } from './interface';
+import { Filter } from './interface';
 import { HttpClient } from '@angular/common/http';
 import { PlatformLocation } from '@angular/common';
 
@@ -8,9 +8,9 @@ import { PlatformLocation } from '@angular/common';
 @Component({
   selector: 'app-filtros',
   template: require('./filtros.component.html'),
-  styles: [require('./filtros.component.scss'), require('../tabela-dinamica/tabela-dinamica.scss')]
+  styles: [require('./filtros.component.scss')]
 })
-export class FiltrosComponent implements OnInit {
+export class FiltersComponent implements OnInit {
 
   @Input('ApiBase') ApiBase: string;
   @Input('filter') filter: any = {};
@@ -18,50 +18,48 @@ export class FiltrosComponent implements OnInit {
   @Input('id') id: string;
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   isAlive: boolean = true;
-  filtroPadraoCount: number = 0;
+  defaultFilterCount: number = 0;
   constructor(private http: HttpClient, private elRef: ElementRef, private zone: NgZone, private locationService: PlatformLocation) {
   }
 
   ngOnInit() {
     // Inicializar valor selecionado
-    let valores = this.filter.valores ? 'valores' : 'campos';
+    let values = this.filter.values ? 'values' : 'campos';
 
     // Inicia o processo de tratamento de filtros
-    this.tratarFiltro();
+    this.tratarFilter();
   }
 
   // Faz o tratamento dos filtros para exibição
-  tratarFiltro(): void {
-    let filtro = this.filter;
-    let processoId = 'filtros-tratarFiltro';
+  tratarFilter(): void {
+    let filter = this.filter;
+    let processId = 'filtros-tratarFiltro';
 
-    filtro.coluna = filtro.coluna || filtro.desc;
+    filter.column = filter.column || filter.desc;
 
-    // Caso já possua valores, só verificar padrao direto
-    if (filtro.valores) {
-      this.verificaFiltroPadrao(filtro, processoId);
+    // Caso já possua values, só verificar default direto
+    if (filter.values) {
+      this.verifyDefaultFilter(filter, processId);
 
-    } else if (filtro.valoresSource) {
-      this.montarValores(filtro, processoId);
+    } else if (filter.valuesSource) {
+      this.montarValores(filter, processId);
     }
   }
 
-  // Montar valores do filtro caso não tenha sido passado
-  montarValores(filtrar, processoId) {
-    let filtro = this.filter;
-    let valores = [];
+  // Montar values do filtro caso não tenha sido passado
+  montarValores(filtrar, processId) {
+    let filter = this.filter;
+    let values = [];
 
-    let url = (filtro.valoresSource.urlPers) ? filtro.valoresSource.url : this.ApiBase + filtro.valoresSource.url;
-    // Caso nao seja odata e precisar de take skip
-    url += (filtro.valoresSource.takeSkip) ? '?take=50&skip=0' : '';
+    let url = (filter.valuesSource.urlPers) ? filter.valuesSource.url : this.ApiBase + filter.valuesSource.url;
 
     // Caso tenha parametros soltos
-    if (filtro.valoresSource.params) {
-      url += '&' + this.filter.valoresSource.params;
+    if (filter.valuesSource.params) {
+      url += '&' + this.filter.valuesSource.params;
     }
 
-    // Caso tenha um campo de filtro, começar com ele zerado
-    if (filtro.valoresSource.campoFiltro) {
+    // Caso tenha um campo de filter, começar com ele zerado
+    if (filter.valuesSource.campoFiltro) {
       url += typeof filtrar === 'string' ? filtrar : `&filtro=[{}]`;
     }
 
@@ -71,32 +69,19 @@ export class FiltrosComponent implements OnInit {
       .subscribe(
       (response: any) => {
 
-        filtro.valores = [];
+        filter.values = [];
 
         for (let res of response) {
           let valPesquisa: string = '';
           let valDescricao: string = '';
 
-          // legacy code, em códigos recentes campoPesquisa no filtro foi mudado para campoValor
-          if (filtro.valoresSource.campoPesquisa) {
+          valPesquisa = res[filter.valuesSource.campoValor];
 
-            if (typeof filtro.valoresSource.campoPesquisa === 'string') {
-              valPesquisa = res[filtro.valoresSource.campoPesquisa];
+          if (filter.valuesSource.campoDescricao) {
+            if (typeof filter.valuesSource.campoDescricao === 'string') {
+              valDescricao = res[filter.valuesSource.campoDescricao];
             } else {
-              for (let item of filtro.valoresSource.campoPesquisa) {
-                valPesquisa += res[item] + ' ';
-              }
-            }
-
-          } else {
-            valPesquisa = res[filtro.valoresSource.campoValor];
-          }
-
-          if (filtro.valoresSource.campoDescricao) {
-            if (typeof filtro.valoresSource.campoDescricao === 'string') {
-              valDescricao = res[filtro.valoresSource.campoDescricao];
-            } else {
-              for (let item of filtro.valoresSource.campoDescricao) {
+              for (let item of filter.valuesSource.campoDescricao) {
                 valDescricao += res[item] + ' ';
               }
             }
@@ -107,34 +92,29 @@ export class FiltrosComponent implements OnInit {
             valor: valPesquisa.trim()
           };
 
-          valores.push(data);
+          values.push(data);
         }
 
-        filtro.valores = valores;
+        filter.values = values;
 
-        // tslint:disable-next-line:curly
         if (typeof filtrar !== 'string')
-          filtro.valores.unshift({ desc: 'Todos', valor: '' });
+          filter.values.unshift({ desc: 'All', valor: '' });
 
-        if (processoId === 'filtros-tratarFiltro')
-          this.verificaFiltroPadrao(filtro, processoId);
+        if (processId === 'filtros-tratarFiltro')
+          this.verifyDefaultFilter(filter, processId);
       });
   }
 
-  // Verifica e seleciona o valor padrão do filtro, caso exista
-  verificaFiltroPadrao(filtro: Filtro, processoId: any): void {
+  // Verifica e seleciona o valor padrão do filter, caso exista
+  verifyDefaultFilter(filter: Filter, processId: any): void {
 
-    let novoSelecionado;
-    let filtroStorage = JSON.parse(sessionStorage.getItem('/' + this.id + filtro.coluna));
+    let newSelected;
 
-    if (filtroStorage && filtroStorage.desc !== 'Todos') {
-      novoSelecionado = filtroStorage;
+    if (filter.selecionadoSource) {
+      let url = (filter.selecionadoSource.urlPers) ? filter.selecionadoSource.url : this.ApiBase + filter.selecionadoSource.url;
 
-    } else if (filtro.selecionadoSource) {
-      let url = (filtro.selecionadoSource.urlPers) ? filtro.selecionadoSource.url : this.ApiBase + filtro.selecionadoSource.url;
-
-      if (filtro.selecionadoSource.params) {
-        url += '?' + filtro.selecionadoSource.params;
+      if (filter.selecionadoSource.params) {
+        url += '?' + filter.selecionadoSource.params;
       }
 
       this.http
@@ -145,60 +125,60 @@ export class FiltrosComponent implements OnInit {
           if (response) {
             let val: string = '';
 
-            if (typeof filtro.selecionadoSource.campoPesquisa === 'string') {
-              val = response[filtro.selecionadoSource.campoPesquisa];
+            if (typeof filter.selecionadoSource.campoPesquisa === 'string') {
+              val = response[filter.selecionadoSource.campoPesquisa];
             } else {
-              for (let item of filtro.selecionadoSource.campoPesquisa) {
+              for (let item of filter.selecionadoSource.campoPesquisa) {
                 val += response[item] + ' ';
               }
             }
 
-            filtro.valores.filter(item => {
+            filter.values.filter(item => {
               if (item.valor === val.trim()) {
-                return this.selecionaFiltro(filtro, item, processoId);
+                return this.selecionaFilter(filter, item, processId);
               }
             });
           }
         });
 
     } else {
-      // Procurar por filtro padrao, caso nao tenha, será atribuido 'Todos'
-      novoSelecionado = filtro.valores.filter(item => item.padrao === true)[0];
+      // Procurar por filtro default, caso nao tenha, será atribuido 'All'
+      newSelected = filter.values.filter(item => item.default === true)[0];
 
     }
 
-    this.verificacaoEspecifica(filtro, novoSelecionado, processoId);
+    this.verificacaoEspecifica(filter, newSelected, processId);
 
-    this.selecionaFiltro(filtro, novoSelecionado, processoId);
+    this.selecionaFilter(filter, newSelected, processId);
   }
 
-  selecionaFiltro(filtro, novoSelecionado, processoId) {
+  selecionaFilter(filter, newSelected, processId) {
 
     // Quando é pesquisável e o valor for nulo
-    if (!novoSelecionado || (!novoSelecionado.valor && !novoSelecionado.desc)) {
-      novoSelecionado = {
-        desc: 'Todos',
+    if (!newSelected || (!newSelected.valor && !newSelected.desc)) {
+      newSelected = {
+        desc: 'All',
         valor: ''
       };
     }
 
     // Evita o recarregamento da tabela quando não há mudanças
-    if (filtro.selecionado && filtro.selecionado.valor === novoSelecionado.valor) {
+    if (filter.selecionado && filter.selecionado.valor === newSelected.valor) {
       return;
     }
 
-    this.callback.emit({ filtro, novoSelecionado });
+    this.callback.emit({ filter, newSelected });
 
-    this.filter.selecionado = Object.assign({}, novoSelecionado);
+    this.filter.selecionado = Object.assign({}, newSelected);
   }
 
-  // Verificacao especifica para cada filtro, se houver algum detalhe e etc
-  verificacaoEspecifica(filtro, novoSelecionado, processoId) {
-    if (filtro.tipo === 'pesquisavel' && novoSelecionado) {
+  // Verificacao especifica para cada filter, se houver algum detalhe e etc
+  verificacaoEspecifica(filter, newSelected, processId) {
+    if (filter.type === 'pesquisavel' && newSelected) {
       //  Verificar se já há filtro salvo na coluna, caso tenha, pegar o valor e salvar novamente
-      let valor = JSON.parse(sessionStorage.getItem(`/filtroPesquisavel-${filtro.coluna}`));
-      this.searchDefaultValue = (valor) ? valor : novoSelecionado.valor;
-      sessionStorage.setItem(`/filtroPesquisavel-${filtro.coluna}`, JSON.stringify(this.searchDefaultValue));
+      let valor = JSON.parse(sessionStorage.getItem(`/filtroPesquisavel-${filter.column}`));
+      this.searchDefaultValue = (valor) ? valor : newSelected.valor;
+      sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(this.searchDefaultValue));
     }
   }
 

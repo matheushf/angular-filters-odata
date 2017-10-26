@@ -1,9 +1,9 @@
 <div class="btn-group">
-  <button type="button" (click)="selecionaFiltro(filtro)" class="btn btn-default" [class.active]="filtro.selecionado.valor === ''">
+  <button type="button" (click)="selectFilter(filtro)" class="btn btn-default" [class.active]="filtro.selecionado.valor === ''">
     Todos
   </button>
 
-  <button *ngFor="let valor of filtro.valores" (click)="selecionaFiltro(filtro, valor)" type="button" class="btn btn-default"
+  <button *ngFor="let valor of filtro.valores" (click)="selectFilter(filter, valor)" type="button" class="btn btn-default"
     [class.active]="filtro.selecionado.valor === valor.valor">
     {{valor.desc}}
   </button>

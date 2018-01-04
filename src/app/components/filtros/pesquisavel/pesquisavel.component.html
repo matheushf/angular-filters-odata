@@ -22,7 +22,7 @@
         {{label}}
       </button>
       <ul *ngIf="filtro.campos[1]" class="dropdown-menu dropdown-menu-tabela">
-        <li *ngFor="let campo of filtro.campos" (click)="selecionarCampo(campo.coluna)">
+        <li *ngFor="let campo of filtro.campos" (click)="selecionarCampo(campo.column)">
           <a class="dropdown-item">{{campo.desc}}</a>
         </li>
       </ul>

@@ -1,17 +1,17 @@
 <button type="button" class="btn btn-default dropwdown-toggle" data-toggle="dropdown">
     <!-- <i class="fa fa-list-ul"></i> -->
-    {{filtro.label || filtro.desc}} ({{filtro.selecionado.desc}}) &nbsp;
+    {{filtro.label || filtro.desc}} ({{filtro.selected.desc}}) &nbsp;
     <i class="fa fa-caret-down"></i>
   </button>
 
 <ul class="dropdown-menu dropdown-filtros" role="menu">
   <li>
-    <button type="button" (click)="selectFilter(filtro)" class="btn btn-default" [class.active]="filtro.selecionado.valor === ''">
+    <button type="button" (click)="selectFilter(filtro)" class="btn btn-default" [class.active]="filtro.selected.valor === ''">
             Todos
         </button>
   </li>
   <li *ngFor="let valor of filtro.valores">
-    <button (click)="selectFilter(filter, valor)" type="button" class="btn btn-default" [class.active]="filtro.selecionado.valor === valor.valor">{{valor.desc}}
+    <button (click)="selectFilter(filter, valor)" type="button" class="btn btn-default" [class.active]="filtro.selected.valor === valor.valor">{{valor.desc}}
                           </button>
   </li>
 </ul>

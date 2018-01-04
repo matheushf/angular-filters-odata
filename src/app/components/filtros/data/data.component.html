@@ -9,43 +9,43 @@
     <ul class="dropdown-menu dropdown-filtros" role="menu">
 
       <li>
-        <button type="button" (click)="calcularData('hoje')" class="btn btn-default" [class.active]="selecionado === 'hoje'">
-          Hoje
+        <button type="button" (click)="calcDate('today')" class="btn btn-default" [class.active]="selected === 'today'">
+          Today
         </button>
       </li>
 
       <li>
-        <button type="button" (click)="calcularData('7d')" class="btn btn-default" [class.active]="selecionado === '7d'">
-          7 Dias
+        <button type="button" (click)="calcDate('7d')" class="btn btn-default" [class.active]="selected === '7d'">
+          7 Days
         </button>
       </li>
 
       <li>
-        <button type="button" (click)="calcularData('1m')" class="btn btn-default" [class.active]="selecionado === '1m'">
-          1 Mês
+        <button type="button" (click)="calcDate('1m')" class="btn btn-default" [class.active]="selected === '1m'">
+          1 Month
         </button>
       </li>
 
       <li>
-        <button type="button" (click)="selecionarPersonalizado()" class="btn btn-default" [class.active]="selecionado === 'personalizado'">
-          Personalizado
+        <button type="button" (click)="selecionarPersonalizado()" class="btn btn-default" [class.active]="selected === 'custom'">
+          Custom
         </button>
       </li>
 
-      <div [hidden]="selecionado !== 'personalizado'">
+      <div [hidden]="selected !== 'custom'">
         <li class="filtro-data">
-          <p> De </p>
+          <p> From </p>
           <span (click)="fixDropDownDx()">
             <dx-date-box dx-data-mask [(ngModel)]="data_inicio" width="100%" type="date" timeZone="America/Sao_Paulo" dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"
-              applyValueMode="useButtons" [invalidDateMessage]="'Data inválida'" [dateOutOfRangeMessage]="'Data ultrapassada'">
+              applyValueMode="useButtons" [invalidDateMessage]="'Invalid Date'" [dateOutOfRangeMessage]="'Out of Date'">
             </dx-date-box>
           </span>
         </li>
         <li class="filtro-data">
-          <p> à </p>
+          <p> To </p>
           <span (click)="fixDropDownDx()">
             <dx-date-box dx-data-mask [(ngModel)]="data_fim" width="100%" type="date" timeZone="America/Sao_Paulo" dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"
-              applyValueMode="useButtons" [invalidDateMessage]="'Data inválida'" [dateOutOfRangeMessage]="'Data ultrapassada'">
+              applyValueMode="useButtons" [invalidDateMessage]="'Invalid Date'" [dateOutOfRangeMessage]="'Out of Date'">
             </dx-date-box>
           </span>
         </li>
@@ -64,9 +64,9 @@
   </button>
 
   <ul class="dropdown-menu dropdown-filtros" role="menu">
-    <li *ngFor="let mes of meses" (click)="calcularData(mes)">
-      <button type="button" class="btn btn-default" [class.active]="selecionado === mes">
-        {{mes}}
+    <li *ngFor="let month of months" (click)="calcDate(month)">
+      <button type="button" class="btn btn-default" [class.active]="selected === month">
+        {{month}}
       </button>
     </li>
   </ul>

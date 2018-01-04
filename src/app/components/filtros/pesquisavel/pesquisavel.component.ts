@@ -16,7 +16,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   pesquisaTimeout: any;
   valorPesquisa: string = '';
   pesquisavelValor: any = '';
-  coluna: string;
+  column: string;
   label: string;
   isAlive: boolean = true;
   carregandoValores: boolean = false;
@@ -24,7 +24,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.label = (this.filter.campos && this.filter.campos[0].desc) ? this.filter.campos[0].desc : null;
-    this.filter.valores = (this.filter.valores) ? this.filter.valores : [];
+    this.filter.values = (this.filter.values) ? this.filter.values : [];
   }
 
   ngAfterViewInit() {
@@ -52,8 +52,8 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   }
 
   // Ao mudar o campo da pesquisa (subtipo == 'input')
-  selecionarCampo(coluna) {
-    this.coluna = coluna;
+  selecionarCampo(column) {
+    this.column = column;
     this.selectFilter(this.filter, {
       valor: $("#search-box").val(),
       desc: this.filter.desc
@@ -88,13 +88,13 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
   selectFilter(filter, newSelected) {
     if (this.valorPadrao)
-      sessionStorage.setItem(`/filtroPesquisavel-${filtro.coluna}`, JSON.stringify(newSelected.valor));
+      sessionStorage.setItem(`/filtroPesquisavel-${filtro.column}`, JSON.stringify(newSelected.valor));
 
-    newSelected.antigo = this.filter.coluna;
+    newSelected.antigo = this.filter.column;
 
-    // Caso tenha campo selecionado, atribuir a coluna do filtro
-    if (this.coluna)
-      this.filter.coluna = this.coluna;
+    // Caso tenha campo selected, atribuir a column do filtro
+    if (this.column)
+      this.filter.column = this.column;
 
     this.callback.emit({
       filter,

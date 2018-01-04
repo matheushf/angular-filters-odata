@@ -3,8 +3,8 @@ export interface Filter {
   type?: string; // (Opcional, padrão: Select) select ou switch
   subtipo?: string; // Se houver um type específico, ex type: data, subtipo: mes
   label?: string; // True para exibir a label do filtro (apenas em select)
-  selecionado?: TDFiltrosValor; // Valor selecionado no filtro
-  selecionadoSource?: TDSource; // Source de dados da API para obter o selecionado
+  selected?: TDFiltrosValor; // Valor selected no filtro
+  selecionadoSource?: TDSource; // Source de dados da API para obter o selected
   column?: string; // (Opcional, se não informado utiliza desc) column que será filtrada com os valores informados
   values?: TDFiltrosValor[]; // Valores dos filtros (opções)
   valoresSource?: TDSource; // Source de dados da API para obter os valores

@@ -23,7 +23,7 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Inicializar valor selecionado
+    // Inicializar valor selected
     let values = this.filter.values ? 'values' : 'campos';
 
     // Inicia o processo de tratamento de filtros
@@ -163,19 +163,19 @@ export class FiltersComponent implements OnInit {
     }
 
     // Evita o recarregamento da tabela quando não há mudanças
-    if (filter.selecionado && filter.selecionado.valor === newSelected.valor) {
+    if (filter.selected && filter.selected.valor === newSelected.valor) {
       return;
     }
 
     this.callback.emit({ filter, newSelected });
 
-    this.filter.selecionado = Object.assign({}, newSelected);
+    this.filter.selected = Object.assign({}, newSelected);
   }
 
   // Verificacao especifica para cada filter, se houver algum detalhe e etc
   verificacaoEspecifica(filter, newSelected, processId) {
     if (filter.type === 'pesquisavel' && newSelected) {
-      //  Verificar se já há filtro salvo na coluna, caso tenha, pegar o valor e salvar novamente
+      //  Verificar se já há filtro salvo na column, caso tenha, pegar o valor e salvar novamente
       let valor = JSON.parse(sessionStorage.getItem(`/filtroPesquisavel-${filter.column}`));
       this.searchDefaultValue = (valor) ? valor : newSelected.valor;
       sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(this.searchDefaultValue));

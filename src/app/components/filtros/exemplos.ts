@@ -49,7 +49,7 @@ let config = {
     /* Switch Dropdown */
     {
       desc: 'Tipo Cliente',
-      coluna: 'TipoPessoa',
+      column: 'TipoPessoa',
       type: 'switch-dropdown',
       collapsed: true,
       valores: [
@@ -112,7 +112,7 @@ let config = {
     /*  Pesquisavel */
     {
       desc: 'Cliente',
-      coluna: 'PessoaId',
+      column: 'PessoaId',
       type: 'pesquisavel',
       subtipo: 'select-input',
       valoresSource: {
@@ -131,19 +131,19 @@ let config = {
       subtipo: 'input',
       campos: [{
         desc: 'Nome',
-        coluna: 'PrimeiroNome',
+        column: 'PrimeiroNome',
         default: true
       }, {
         desc: 'Email',
-        coluna: 'Email'
+        column: 'Email'
       }, {
         desc: 'Cpf',
-        coluna: 'Cpf'
+        column: 'Cpf'
       }]
     },
     {
       desc: 'Cliente',
-      coluna: 'PessoaId',
+      column: 'PessoaId',
       type: 'pesquisavel',
       subtipo: 'select-input',
       operador: 'eq',
@@ -161,7 +161,7 @@ let config = {
     /* Select odata */
     {
       desc: 'Teste Select',
-      coluna: 'Estado',
+      column: 'Estado',
       type: 'select',
       valores: ['GO', 'BA', 'PA']
     }

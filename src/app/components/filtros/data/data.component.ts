@@ -1,21 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import moment from 'moment';
+
 declare var moment: any;
 
 @Component({
-  selector: 'filtro-data',
+  selector: 'app-filtro-data',
   template: require('./data.component.html'),
-  styles: [require('./data.component.scss'), require('../../tabela-dinamica/tabela-dinamica.scss')]
+  styles: [require('./data.component.scss')]
 })
 export class DataComponent implements OnInit {
 
   @Input('filter') filter: any;
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
   today = new Date();
-  selecionado: string = '';
-  meses: Array<any> = [];
-  data_inicio: any;
-  data_fim: any;
+  selected: string = '';
+  months: Array<any> = [];
+  date_start: any;
+  date_end: any;
   constructor() { }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class DataComponent implements OnInit {
     }
   }
 
-  // Fix para quando clicar no dateBox do Dx nao fechar o dropdown de filtros
+  // Fix for when clicking on DX DateBox it doesn't close the dropdown
   fixDropDownDx() {
     window.setTimeout(() => {
       $(document).find('.dx-datebox-wrapper').on('click', (event) => {
@@ -36,61 +36,60 @@ export class DataComponent implements OnInit {
     }, 300);
   }
 
-  // Formatar valores para aparecer no <select></select>
+  // Format values to show on <select></select>
   dataSelect() {
-    let quant = (this.filter.valores.length > 0) ? this.filter.valores[0].valor : 12;
-    let format = (this.filter.valores.length > 0) ? this.filter.valores[0].desc : 'MM/YYYY';
+    let quant = (this.filter.values.length > 0) ? this.filter.values[0].valor : 12;
+    let format = (this.filter.values.length > 0) ? this.filter.values[0].desc : 'MM/YYYY';
 
     let date = moment();
     date.subtract(quant, 'months');
 
     for (let i = 0; i <= quant; i++) {
       date.add(1, 'months');
-      this.meses.push(date.format(format));
+      this.months.push(date.format(format));
     }
   }
 
   selecionarPersonalizado() {
-    this.data_inicio = moment();
-    this.data_fim = moment();
-    this.selecionado = 'personalizado';
+    this.date_start = moment();
+    this.date_end = moment();
+    this.selected = 'custom';
   }
 
-  calcularData(data) {
-    this.selecionado = data;
+  calcDate(data) {
+    this.selected = data;
 
-    this.data_fim = moment();
+    this.date_end = moment();
 
     switch (data) {
-      case 'hoje':
-        this.data_inicio = this.data_fim.subtract(1, 'days');
+      case 'today':
+        this.date_start = this.date_end.subtract(1, 'days');
         break;
 
       case '7d':
-        this.data_inicio = this.data_fim.subtract(7, 'days');
+        this.date_start = this.date_end.subtract(7, 'days');
         break;
 
       case '1m':
-        this.data_inicio = this.data_fim.subtract(1, 'months');
+        this.date_start = this.date_end.subtract(1, 'months');
         break;
     }
 
-    this.data_inicio = this.data_inicio.utc().format();
+    this.date_start = this.date_start.utc().format();
 
     this.selectFilter();
   }
 
   selectFilter() {
     let newSelected: any = {};
-    let coluna = this.filter.coluna ? this.filter.coluna : this.filter.desc;
+    let column = this.filter.column ? this.filter.column : this.filter.desc;
 
-    this.data_fim = moment().utc().format();
+    this.date_end = moment().utc().format();
 
-    newSelected.desc = coluna;
+    newSelected.desc = column;
 
-    // Por enquanto é só odata, quando for normal pensar em como vai enviar
     if (this.filter.odata)
-      newSelected.valor = ` ${coluna} gt ${this.data_inicio} and ${coluna} lt ${this.data_fim} `;
+      newSelected.valor = ` ${column} gt ${this.date_start} and ${column} lt ${this.date_end} `;
 
     this.callback.emit({ filter: this.filter, newSelected });
   }

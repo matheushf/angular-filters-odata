@@ -110,7 +110,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
   }
 
   limparFiltros() {
-    this.filtersObject.filtros.map(value => value.selecionado = { valor: '', desc: 'All' });
+    this.filtersObject.filtros.map(value => value.selected = { valor: '', desc: 'All' });
     this.callbacklimparFiltros.emit(true);
   }
 

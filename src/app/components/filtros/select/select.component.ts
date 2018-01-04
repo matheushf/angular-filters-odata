@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'filtro-select',
+  selector: 'app-filtro-select',
   template: require('./select.component.html'),
-  styles: [require('./select.component.scss'), require('../../tabela-dinamica/tabela-dinamica.scss')]
+  styles: [require('./select.component.scss')]
 })
 export class SelectComponent implements OnInit {
 

@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiBase } from '../../../services/login.service';
 
 @Component({
-  selector: 'filtro-pesquisavel',
+  selector: 'app-filtro-pesquisavel',
   template: require('./pesquisavel.component.html'),
-  styles: [require('./pesquisavel.component.scss'), require('../../tabela-dinamica/tabela-dinamica.scss')]
+  styles: [require('./pesquisavel.component.scss')]
 })
 export class PesquisavelComponent implements OnInit, OnChanges {
 
@@ -55,7 +54,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   selecionarCampo(column) {
     this.column = column;
     this.selectFilter(this.filter, {
-      valor: $("#search-box").val(),
+      valor: $('#search-box').val(),
       desc: this.filter.desc
     });
   }
@@ -88,7 +87,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
   selectFilter(filter, newSelected) {
     if (this.valorPadrao)
-      sessionStorage.setItem(`/filtroPesquisavel-${filtro.column}`, JSON.stringify(newSelected.valor));
+      sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(newSelected.valor));
 
     newSelected.antigo = this.filter.column;
 

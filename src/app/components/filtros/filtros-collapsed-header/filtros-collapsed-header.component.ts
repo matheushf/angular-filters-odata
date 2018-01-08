@@ -32,12 +32,12 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
     this.filtersObject.filters.map((filter: Filter) => {
       // Caso seja odata, adicionar em todos
-      filtro.odata = odata;
+      filter.odata = odata;
 
       // Contar a quantidade de filtros que possuem valores padroes
-      if (filtro.valores) {
-        filtro.valores.map(valor => { if (valor.default) this.quantFiltrosPadroes++; });
-      } else if (filtro.selecionadoSource) {
+      if (filter.valores) {
+        filter.valores.map(valor => { if (valor.default) this.quantFiltrosPadroes++; });
+      } else if (filter.selecionadoSource) {
         this.quantFiltrosPadroes++;
       }
     });
@@ -45,7 +45,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
   selectFilter(filter: Filter, newSelected) {
     let self = this;
-    let column = filtro.column ? filtro.column : filtro.desc;
+    let column = filter.column ? filter.column : filter.desc;
     let orderBy = '';
     this.filtroPadraoCount++;
     filtro = Object.assign({}, filtro);
@@ -62,7 +62,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
       delete this.filtro_param[column];
 
       // Se for odata, só colocar o valor
-    } else if (filtro.odata) {
+    } else if (filter.odata) {
       this.filtro_param[column] = newSelected.valor;
 
     } else if (newSelected.valor) {
@@ -90,10 +90,10 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
     if (!newSelected.valor)
       return newSelected;
 
-    if (filtro.operador === 'startswith')
+    if (filter.operador === 'startswith')
 
-      if (filtro.operador === 'eq')
-        newSelected.valor = ` ${filtro.column} eq ${newSelected.valor} `;
+      if (filter.operador === 'eq')
+        newSelected.valor = ` ${filter.column} eq ${newSelected.valor} `;
 
     return newSelected;
   }

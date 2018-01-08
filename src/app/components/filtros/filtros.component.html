@@ -1,23 +1,23 @@
-<span *ngIf="filter" [hidden]="filtro.visible === false" class="filtros pull-right">
+<span *ngIf="filter" [hidden]="filter.visible === false" class="filtros pull-right">
 
-  <span *ngIf="!filtro.type || filtro.type === 'select'" class="input-group mr-10">
+  <span *ngIf="!filter.type || filter.type === 'select'" class="input-group mr-10">
     <app-filtro-select [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></app-filtro-select>
   </span>
 
-  <span *ngIf="filtro.type === 'pesquisavel'" class="mr-10" [class.input-group]="filtro.subtipo !== 'input'" [class.subtipo-input]="filtro.subtipo === 'input'">
+  <span *ngIf="filter.type === 'pesquisavel'" class="mr-10" [class.input-group]="filter.subtipo !== 'input'" [class.subtipo-input]="filter.subtipo === 'input'">
     <app-filtro-pesquisavel [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" (callbackMontarValores)="montarValores($event.filter, $event.processId)"
       [valorPadrao]="pesquisavelValorPadrao"></app-filtro-pesquisavel>
   </span>
 
-  <span *ngIf="filtro.type === 'switch' || filtro.type === 'switch-tab'" class="mr-10">
+  <span *ngIf="filter.type === 'switch' || filter.type === 'switch-tab'" class="mr-10">
     <app-filtro-switch [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></app-filtro-switch>
   </span>
 
-  <span *ngIf="filtro.type === 'switch-dropdown'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+  <span *ngIf="filter.type === 'switch-dropdown'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
     <app-filtro-switch-dropdown [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></app-filtro-switch-dropdown>
   </span>
 
-  <span *ngIf="filtro.type === 'data'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
+  <span *ngIf="filter.type === 'data'" static-dropdown class="keep-open btn-group mr-10" title="Columns">
     <app-filtro-data [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)"></app-filtro-data>
   </span>
 </span>

@@ -30,7 +30,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
     let filtro = this.filter;
 
     // Se for input, não precisa de tratamento nem nada
-    if (filtro.subtipo === 'input')
+    if (filter.subtipo === 'input')
       return;
   }
 

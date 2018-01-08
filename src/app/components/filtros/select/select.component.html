@@ -1,19 +1,19 @@
-<!-- <input *ngIf="filtro.label" type="text" class="form-control" readonly [(ngModel)]="filtro.desc">
-<div [class.input-group-btn]="filtro.label">
+<!-- <input *ngIf="filter.label" type="text" class="form-control" readonly [(ngModel)]="filter.desc">
+<div [class.input-group-btn]="filter.label">
   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    {{filtro.selected?.desc}}
+    {{filter.selected?.desc}}
   </button>
    <ul class="dropdown-menu">
     <li><a (click)="selectFilter(filtro)">Todos</a></li>
-    <li *ngFor="let valor of filtro.valores"><a (click)="selectFilter(filter, valor)">{{valor.desc}}</a>
+    <li *ngFor="let valor of filter.valores"><a (click)="selectFilter(filter, valor)">{{valor.desc}}</a>
     </li>
   </ul>
 </div> -->
 
 <div class="form-group">
-  <!-- <label>{{filtro.desc}}</label> -->
+  <!-- <label>{{filter.desc}}</label> -->
   <select class="form-control" #select (change)="selectFilter(filter, select.value)">
     <option>Todos</option>
-    <option *ngFor="let valor of filtro.valores" [value]="valor.valor">{{valor.desc}}</option>
+    <option *ngFor="let valor of filter.valores" [value]="valor.valor">{{valor.desc}}</option>
   </select>
 </div>

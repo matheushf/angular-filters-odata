@@ -4,7 +4,7 @@ import { Filter } from '../interface';
 // cause you should never write something twice
 
 @Component({
-  selector: 'app-filtros-collapsed',
+  selector: 'app-filters-collapsed',
   template: require('./filtros-collapsed-header.component.html'),
   styles: [require('./filtros-collapsed-header.component.scss')]
 })

@@ -6,7 +6,7 @@
       <i class="fa fa-caret-down"></i>
     </button>
 
-    <ul class="dropdown-menu dropdown-filtros" role="menu">
+    <ul class="dropdown-menu dropdown-filters" role="menu">
 
       <li>
         <button type="button" (click)="calcDate('today')" class="btn btn-default" [class.active]="selected === 'today'">
@@ -63,7 +63,7 @@
     <i class="fa fa-caret-down"></i>
   </button>
 
-  <ul class="dropdown-menu dropdown-filtros" role="menu">
+  <ul class="dropdown-menu dropdown-filters" role="menu">
     <li *ngFor="let month of months" (click)="calcDate(month)">
       <button type="button" class="btn btn-default" [class.active]="selected === month">
         {{month}}

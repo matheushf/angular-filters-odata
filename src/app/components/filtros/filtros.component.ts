@@ -6,7 +6,7 @@ import { PlatformLocation } from '@angular/common';
 // abstrair é a arte que faz uma esponja o bob esponja
 
 @Component({
-  selector: 'app-filtros',
+  selector: 'app-filters',
   template: require('./filtros.component.html'),
   styles: [require('./filtros.component.scss')]
 })

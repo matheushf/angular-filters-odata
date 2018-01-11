@@ -3,7 +3,7 @@
   <div class="col-12">
     <div>
       <a data-toggle="collapse" href="#{{filtrosConfig.id}}" [attr.aria-expanded]="open || false" [attr.aria-controls]="filtrosConfig.id"><i class="fa fa-filter"></i> Filtros </a>
-      <a class="limpar-filtros ml-10" (click)="limparFiltros()"> <i class="fa fa-remove"></i> Limpar </a>
+      <a class="limpar-filters ml-10" (click)="limparFiltros()"> <i class="fa fa-remove"></i> Limpar </a>
     </div>
   </div>
 </div>
@@ -12,7 +12,7 @@
   <div class="col-12 pr-0">
     <div class="collapse" [attr.id]="filtrosConfig.id" [attr.aria-expanded]="open || false" [class.show]="open">
       <span *ngFor="let filtro of filtrosConfig.filtros">
-        <app-filtros [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" [id]="filtrosConfig.id"></app-filtros>
+        <app-filters [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" [id]="filtrosConfig.id"></app-filters>
       </span>
     </div>
   </div>

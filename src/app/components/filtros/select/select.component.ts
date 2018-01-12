@@ -31,7 +31,7 @@ export class SelectComponent implements OnInit {
     };
 
     if (filter.odata) {
-      newSelected.valor = ` ${filter.column} eq '${newSelected.valor}' `;
+      newSelected.value = ` ${filter.column} eq '${newSelected.value}' `;
     }
 
     this.callback.emit({ filter, newSelected });

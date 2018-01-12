@@ -58,15 +58,15 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
       delete this.filtro_param[newSelected.antigo];
 
     // Caso não tenha valor, remover dos filtros
-    if (!newSelected.valor) {
+    if (!newSelected.value) {
       delete this.filtro_param[column];
 
       // Se for odata, só colocar o valor
     } else if (filter.odata) {
-      this.filtro_param[column] = newSelected.valor;
+      this.filtro_param[column] = newSelected.value;
 
-    } else if (newSelected.valor) {
-      this.filtro_param[column] = `${column} ${newSelected.valor}`;
+    } else if (newSelected.value) {
+      this.filtro_param[column] = `${column} ${newSelected.value}`;
     }
 
     if (this.orderBy) {
@@ -87,13 +87,13 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
   // Saber o type de operador que será usado e tratar de acordo
   tratarValor(filter: Filter, newSelected) {
-    if (!newSelected.valor)
+    if (!newSelected.value)
       return newSelected;
 
     if (filter.operador === 'startswith')
 
       if (filter.operador === 'eq')
-        newSelected.valor = ` ${filter.column} eq ${newSelected.valor} `;
+        newSelected.value = ` ${filter.column} eq ${newSelected.value} `;
 
     return newSelected;
   }
@@ -102,7 +102,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
     switch (operator) {
       case 'startswith':
-        newSelected.valor = ` startswith(${filter.column}, '${newSelected.valor}') `;
+        newSelected.value = ` startswith(${filter.column}, '${newSelected.value}') `;
 
     }
 

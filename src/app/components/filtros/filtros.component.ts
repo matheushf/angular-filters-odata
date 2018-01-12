@@ -134,7 +134,7 @@ export class FiltersComponent implements OnInit {
             }
 
             filter.values.filter(item => {
-              if (item.valor === val.trim()) {
+              if (item.value === val.trim()) {
                 return this.selecionaFilter(filter, item, processId);
               }
             });
@@ -155,7 +155,7 @@ export class FiltersComponent implements OnInit {
   selecionaFilter(filter, newSelected, processId) {
 
     // Quando é pesquisável e o valor for nulo
-    if (!newSelected || (!newSelected.valor && !newSelected.desc)) {
+    if (!newSelected || (!newSelected.value && !newSelected.desc)) {
       newSelected = {
         desc: 'All',
         valor: ''
@@ -163,7 +163,7 @@ export class FiltersComponent implements OnInit {
     }
 
     // Evita o recarregamento da tabela quando não há mudanças
-    if (filter.selected && filter.selected.valor === newSelected.valor) {
+    if (filter.selected && filter.selected.value === newSelected.value) {
       return;
     }
 
@@ -177,7 +177,7 @@ export class FiltersComponent implements OnInit {
     if (filter.type === 'pesquisavel' && newSelected) {
       //  Verificar se já há filtro salvo na column, caso tenha, pegar o valor e salvar novamente
       let valor = JSON.parse(sessionStorage.getItem(`/filtroPesquisavel-${filter.column}`));
-      this.searchDefaultValue = (valor) ? valor : newSelected.valor;
+      this.searchDefaultValue = (valor) ? valor : newSelected.value;
       sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(this.searchDefaultValue));
     }
   }

@@ -38,7 +38,7 @@ export class DataComponent implements OnInit {
 
   // Format values to show on <select></select>
   dataSelect() {
-    let quant = (this.filter.values.length > 0) ? this.filter.values[0].valor : 12;
+    let quant = (this.filter.values.length > 0) ? this.filter.values[0].value : 12;
     let format = (this.filter.values.length > 0) ? this.filter.values[0].desc : 'MM/YYYY';
 
     let date = moment();
@@ -89,7 +89,7 @@ export class DataComponent implements OnInit {
     newSelected.desc = column;
 
     if (this.filter.odata)
-      newSelected.valor = ` ${column} gt ${this.date_start} and ${column} lt ${this.date_end} `;
+      newSelected.value = ` ${column} gt ${this.date_start} and ${column} lt ${this.date_end} `;
 
     this.callback.emit({ filter: this.filter, newSelected });
   }

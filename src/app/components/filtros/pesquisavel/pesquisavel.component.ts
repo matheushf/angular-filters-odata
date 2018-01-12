@@ -87,7 +87,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
   selectFilter(filter, newSelected) {
     if (this.valorPadrao)
-      sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(newSelected.valor));
+      sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(newSelected.value));
 
     newSelected.antigo = this.filter.column;
 

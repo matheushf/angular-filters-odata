@@ -4,7 +4,7 @@
   </button>
 
   <button *ngFor="let valor of filter.valores" (click)="selectFilter(filter, valor)" type="button" class="btn btn-default"
-    [class.active]="filter.selected.value === valor.value">
-    {{valor.desc}}
+    [class.active]="filter.selected.value === value.value">
+    {{value.desc}}
   </button>
 </div>

@@ -36,7 +36,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
       // Contar a quantidade de filtros que possuem valores padroes
       if (filter.valores) {
-        filter.valores.map(valor => { if (valor.default) this.quantFiltrosPadroes++; });
+        filter.valores.map(valor => { if (value.default) this.quantFiltrosPadroes++; });
       } else if (filter.selecionadoSource) {
         this.quantFiltrosPadroes++;
       }

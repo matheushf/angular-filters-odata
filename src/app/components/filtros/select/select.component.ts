@@ -14,7 +14,7 @@ export class SelectComponent implements OnInit {
   ngOnInit() {
     // Montar o valor, caso tenha passado apenas um array sem objetos
     this.filter.values.map((valor, index) => {
-      if (!valor.desc) {
+      if (!value.desc) {
         this.filter.values[index] = {
           desc: valor,
           valor: valor

@@ -5,7 +5,7 @@
   </button>
    <ul class="dropdown-menu">
     <li><a (click)="selectFilter(filtro)">Todos</a></li>
-    <li *ngFor="let valor of filter.valores"><a (click)="selectFilter(filter, valor)">{{valor.desc}}</a>
+    <li *ngFor="let valor of filter.valores"><a (click)="selectFilter(filter, valor)">{{value.desc}}</a>
     </li>
   </ul>
 </div> -->
@@ -14,6 +14,6 @@
   <!-- <label>{{filter.desc}}</label> -->
   <select class="form-control" #select (change)="selectFilter(filter, select.value)">
     <option>Todos</option>
-    <option *ngFor="let valor of filter.valores" [value]="valor.value">{{valor.desc}}</option>
+    <option *ngFor="let valor of filter.valores" [value]="value.value">{{value.desc}}</option>
   </select>
 </div>

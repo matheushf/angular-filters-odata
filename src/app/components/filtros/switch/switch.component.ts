@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-filtro-switch',
+  selector: 'app-filter-switch',
   template: require('./switch.component.html'),
   styles: [require('./switch.component.scss')],
 })

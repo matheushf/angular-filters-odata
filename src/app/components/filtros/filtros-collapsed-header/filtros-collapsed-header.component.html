@@ -11,8 +11,8 @@
 <div class="row mb-100">
   <div class="col-12 pr-0">
     <div class="collapse" [attr.id]="filtrosConfig.id" [attr.aria-expanded]="open || false" [class.show]="open">
-      <span *ngFor="let filtro of filtrosConfig.filtros">
-        <app-filters [filtro]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" [id]="filtrosConfig.id"></app-filters>
+      <span *ngFor="let filter of filtrosConfig.filtros">
+        <app-filters [filter]="filter" (callback)="selectFilter($event.filter, $event.newSelected)" [id]="filtrosConfig.id"></app-filters>
       </span>
     </div>
   </div>

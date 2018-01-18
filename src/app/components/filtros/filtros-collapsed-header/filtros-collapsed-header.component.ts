@@ -16,12 +16,12 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
   @Input('top') top: any;
   @Input('skip') skip: any;
   @Input('open') open: any;
-  @Output('callbacklimparFiltros') callbacklimparFiltros: EventEmitter<any> = new EventEmitter();
+  @Output('cleanFilters') cleanFilters: EventEmitter<any> = new EventEmitter();
   @Output('callback') callback: EventEmitter<any> = new EventEmitter();
-  filtro_param: Array<any> = [];
-  filtro_url: string = '';
-  quantFiltrosPadroes: number = 0;
-  filtroPadraoCount: number = 0;
+  filter_param: Array<any> = [];
+  filter_url: string = '';
+  quantDefaultFilters: number = 0;
+  defaultFilterCount: number = 0;
 
   constructor() {
 
@@ -31,14 +31,15 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
     let odata = (this.filtersObject.odata) ? true : false;
 
     this.filtersObject.filters.map((filter: Filter) => {
-      // Caso seja odata, adicionar em todos
+      // If it's odata, add in all
       filter.odata = odata;
 
       // Contar a quantidade de filtros que possuem valores padroes
-      if (filter.valores) {
-        filter.valores.map(valor => { if (value.default) this.quantFiltrosPadroes++; });
+      // Count the quantity of filters that have default values
+      if (filter.values) {
+        filter.values.map(valor => { if (filter.default) this.quantDefaultFilters++; });
       } else if (filter.selecionadoSource) {
-        this.quantFiltrosPadroes++;
+        this.quantDefaultFilters++;
       }
     });
   }
@@ -47,42 +48,42 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
     let self = this;
     let column = filter.column ? filter.column : filter.desc;
     let orderBy = '';
-    this.filtroPadraoCount++;
-    filtro = Object.assign({}, filtro);
+    this.defaultFilterCount++;
+    filter = Object.assign({}, filter);
     newSelected = Object.assign({}, newSelected);
 
     newSelected = this.tratarValor(filter, newSelected);
 
     // Remover o antigo, caso exista
     if (newSelected.antigo)
-      delete this.filtro_param[newSelected.antigo];
+      delete this.filter_param[newSelected.antigo];
 
     // Caso não tenha valor, remover dos filtros
     if (!newSelected.value) {
-      delete this.filtro_param[column];
+      delete this.filter_param[column];
 
       // Se for odata, só colocar o valor
     } else if (filter.odata) {
-      this.filtro_param[column] = newSelected.value;
+      this.filter_param[column] = newSelected.value;
 
     } else if (newSelected.value) {
-      this.filtro_param[column] = `${column} ${newSelected.value}`;
+      this.filter_param[column] = `${column} ${newSelected.value}`;
     }
 
     if (this.orderBy) {
       orderBy = `&$orderby=${this.orderBy}`;
     }
 
-    this.filtro_url = `?$count=true&$top=${this.top || 0}&$skip=${this.skip || 0}${orderBy}&$filter=contains('', '') `;
+    this.filter_url = `?$count=true&$top=${this.top || 0}&$skip=${this.skip || 0}${orderBy}&$filter=contains('', '') `;
 
     // Juntar todos os filtros em uma string
-    Object.keys(this.filtro_param).forEach((value) => {
-      this.filtro_url += ' and ' + self.filtro_param[value];
+    Object.keys(this.filter_param).forEach((value) => {
+      this.filter_url += ' and ' + self.filter_param[value];
     });
 
     // Filtrar apenas se os filtros padroes estiverem acabado
-    if (this.filtroPadraoCount >= this.quantFiltrosPadroes)
-      this.callback.emit({ filtro_url: this.filtro_url });
+    if (this.defaultFilterCount >= this.quantDefaultFilters)
+      this.callback.emit({ filter_url: this.filter_url });
   }
 
   // Saber o type de operador que será usado e tratar de acordo
@@ -111,7 +112,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
   limparFiltros() {
     this.filtersObject.filtros.map(value => value.selected = { valor: '', desc: 'All' });
-    this.callbacklimparFiltros.emit(true);
+    this.cleanFilters.emit(true);
   }
 
 }

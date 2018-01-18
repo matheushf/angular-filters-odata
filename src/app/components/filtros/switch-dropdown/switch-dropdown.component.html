@@ -6,11 +6,11 @@
 
 <ul class="dropdown-menu dropdown-filters" role="menu">
   <li>
-    <button type="button" (click)="selectFilter(filtro)" class="btn btn-default" [class.active]="filter.selected.value === ''">
+    <button type="button" (click)="selectFilter(filter)" class="btn btn-default" [class.active]="filter.selected.value === ''">
             Todos
         </button>
   </li>
-  <li *ngFor="let valor of filter.valores">
+  <li *ngFor="let valor of filter.values">
     <button (click)="selectFilter(filter, valor)" type="button" class="btn btn-default" [class.active]="filter.selected.value === value.value">{{value.desc}}
                           </button>
   </li>

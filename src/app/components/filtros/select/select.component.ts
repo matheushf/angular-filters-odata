@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-filtro-select',
+  selector: 'app-filter-select',
   template: require('./select.component.html'),
   styles: [require('./select.component.scss')]
 })

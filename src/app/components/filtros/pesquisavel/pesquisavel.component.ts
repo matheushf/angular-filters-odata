@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-filtro-pesquisavel',
+  selector: 'app-filter-pesquisavel',
   template: require('./pesquisavel.component.html'),
   styles: [require('./pesquisavel.component.scss')]
 })
@@ -27,7 +27,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    let filtro = this.filter;
+    let filter = this.filter;
 
     // Se for input, não precisa de tratamento nem nada
     if (filter.subtipo === 'input')
@@ -78,7 +78,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
     this.pesquisaTimeout = setTimeout(() => {
       if (source.campoFiltro) {
         // @todo diferenciar se a busca é odata ou ObterTodos normal
-        let filtrar = `&filtro=[{"Desc": "${source.campoFiltro}", "Coluna": "${source.campoFiltro}", "Valor": "${valorPesquisa}"}]`;
+        let filtrar = `&filter=[{"Desc": "${source.campoFiltro}", "Coluna": "${source.campoFiltro}", "Valor": "${valorPesquisa}"}]`;
         this.callbackMontarValores.emit({ filter: filtrar, processId: 'pesquisavel-filtrarPesquisa' });
       }
 
@@ -91,7 +91,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
     newSelected.antigo = this.filter.column;
 
-    // Caso tenha campo selected, atribuir a column do filtro
+    // Caso tenha campo selected, atribuir a column do filter
     if (this.column)
       this.filter.column = this.column;
 

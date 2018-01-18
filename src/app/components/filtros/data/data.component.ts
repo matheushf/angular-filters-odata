@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 declare var moment: any;
 
 @Component({
-  selector: 'app-filtro-data',
+  selector: 'app-filter-data',
   template: require('./data.component.html'),
   styles: [require('./data.component.scss')]
 })
@@ -50,7 +50,7 @@ export class DataComponent implements OnInit {
     }
   }
 
-  selecionarPersonalizado() {
+  selectCustom() {
     this.date_start = moment();
     this.date_end = moment();
     this.selected = 'custom';

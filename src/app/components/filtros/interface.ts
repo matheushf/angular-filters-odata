@@ -2,14 +2,14 @@ export interface Filter {
   desc: string; // Descrição da coleção de TDFiltros
   type?: string; // (Opcional, padrão: Select) select ou switch
   subtipo?: string; // Se houver um type específico, ex type: data, subtipo: mes
-  label?: string; // True para exibir a label do filtro (apenas em select)
-  selected?: TDFiltrosValor; // Valor selected no filtro
+  label?: string; // True para exibir a label do filter (apenas em select)
+  selected?: TDFiltrosValor; // Valor selected no filter
   selecionadoSource?: TDSource; // Source de dados da API para obter o selected
   column?: string; // (Opcional, se não informado utiliza desc) column que será filtrada com os valores informados
   values?: TDFiltrosValor[]; // Valores dos filtros (opções)
   valoresSource?: TDSource; // Source de dados da API para obter os valores
-  collapsed?: boolean; // Caso o filtro tenha que ser escondido em collapsed
-  visible?: boolean; // Trocar a visibilidade do filtro
+  collapsed?: boolean; // Caso o filter tenha que ser escondido em collapsed
+  visible?: boolean; // Trocar a visibilidade do filter
   odata?: boolean; // Para filtros com uso de odata
   operador?: string; // Operador utilizado na funcao odata
 }

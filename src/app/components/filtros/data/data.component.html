@@ -28,13 +28,13 @@
       </li>
 
       <li>
-        <button type="button" (click)="selecionarPersonalizado()" class="btn btn-default" [class.active]="selected === 'custom'">
+        <button type="button" (click)="selectCustom()" class="btn btn-default" [class.active]="selected === 'custom'">
           Custom
         </button>
       </li>
 
       <div [hidden]="selected !== 'custom'">
-        <li class="filtro-data">
+        <li class="filter-data">
           <p> From </p>
           <span (click)="fixDropDownDx()">
             <dx-date-box dx-data-mask [(ngModel)]="data_inicio" width="100%" type="date" timeZone="America/Sao_Paulo" dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"
@@ -42,7 +42,7 @@
             </dx-date-box>
           </span>
         </li>
-        <li class="filtro-data">
+        <li class="filter-data">
           <p> To </p>
           <span (click)="fixDropDownDx()">
             <dx-date-box dx-data-mask [(ngModel)]="data_fim" width="100%" type="date" timeZone="America/Sao_Paulo" dateSerializationFormat="yyyy-MM-ddTHH:mm:ssZ"

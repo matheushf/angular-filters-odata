@@ -46,7 +46,7 @@ export class FiltersComponent implements OnInit {
     }
   }
 
-  // Montar values do filtro caso não tenha sido passado
+  // Montar values do filter caso não tenha sido passado
   montarValores(filtrar, processId) {
     let filter = this.filter;
     let values = [];
@@ -60,7 +60,7 @@ export class FiltersComponent implements OnInit {
 
     // Caso tenha um campo de filter, começar com ele zerado
     if (filter.valuesSource.campoFiltro) {
-      url += typeof filtrar === 'string' ? filtrar : `&filtro=[{}]`;
+      url += typeof filtrar === 'string' ? filtrar : `&filter=[{}]`;
     }
 
     this.http
@@ -142,7 +142,7 @@ export class FiltersComponent implements OnInit {
         });
 
     } else {
-      // Procurar por filtro default, caso nao tenha, será atribuido 'All'
+      // Procurar por filter default, caso nao tenha, será atribuido 'All'
       newSelected = filter.values.filter(item => item.default === true)[0];
 
     }
@@ -175,7 +175,7 @@ export class FiltersComponent implements OnInit {
   // Verificacao especifica para cada filter, se houver algum detalhe e etc
   verificacaoEspecifica(filter, newSelected, processId) {
     if (filter.type === 'pesquisavel' && newSelected) {
-      //  Verificar se já há filtro salvo na column, caso tenha, pegar o valor e salvar novamente
+      //  Verificar se já há filter salvo na column, caso tenha, pegar o valor e salvar novamente
       let valor = JSON.parse(sessionStorage.getItem(`/filtroPesquisavel-${filter.column}`));
       this.searchDefaultValue = (valor) ? valor : newSelected.value;
       sessionStorage.setItem(`/filtroPesquisavel-${filter.column}`, JSON.stringify(this.searchDefaultValue));

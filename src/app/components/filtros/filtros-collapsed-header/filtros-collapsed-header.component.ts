@@ -34,7 +34,6 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
       // If it's odata, add in all
       filter.odata = odata;
 
-      // Contar a quantidade de filtros que possuem valores padroes
       // Count the quantity of filters that have default values
       if (filter.values) {
         filter.values.map(valor => { if (filter.default) this.quantDefaultFilters++; });
@@ -54,15 +53,15 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
     newSelected = this.tratarValor(filter, newSelected);
 
-    // Remover o antigo, caso exista
+    // Remove the old one, if it's there
     if (newSelected.antigo)
       delete this.filter_param[newSelected.antigo];
 
-    // Caso não tenha valor, remover dos filtros
+    // If there's no value, remove from the filters
     if (!newSelected.value) {
       delete this.filter_param[column];
 
-      // Se for odata, só colocar o valor
+      // If it's odata, just put the value
     } else if (filter.odata) {
       this.filter_param[column] = newSelected.value;
 
@@ -76,24 +75,24 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
     this.filter_url = `?$count=true&$top=${this.top || 0}&$skip=${this.skip || 0}${orderBy}&$filter=contains('', '') `;
 
-    // Juntar todos os filtros em uma string
+    // Join all the filters in one string
     Object.keys(this.filter_param).forEach((value) => {
       this.filter_url += ' and ' + self.filter_param[value];
     });
 
-    // Filtrar apenas se os filtros padroes estiverem acabado
+    // Filter just if the default filters are over
     if (this.defaultFilterCount >= this.quantDefaultFilters)
       this.callback.emit({ filter_url: this.filter_url });
   }
 
-  // Saber o type de operador que será usado e tratar de acordo
+  // Know the operator type that's going to be used and treat it
   tratarValor(filter: Filter, newSelected) {
     if (!newSelected.value)
       return newSelected;
 
-    if (filter.operador === 'startswith')
+    if (filter.operator === 'startswith')
 
-      if (filter.operador === 'eq')
+      if (filter.operator === 'eq')
         newSelected.value = ` ${filter.column} eq ${newSelected.value} `;
 
     return newSelected;

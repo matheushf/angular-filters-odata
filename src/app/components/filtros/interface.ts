@@ -11,7 +11,7 @@ export interface Filter {
   collapsed?: boolean; // Caso o filter tenha que ser escondido em collapsed
   visible?: boolean; // Trocar a visibilidade do filter
   odata?: boolean; // Para filtros com uso de odata
-  operador?: string; // Operador utilizado na funcao odata
+  operator?: string; // Operador utilizado na funcao odata
 }
 
 export interface TDFiltrosValor {

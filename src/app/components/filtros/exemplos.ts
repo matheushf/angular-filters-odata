@@ -146,7 +146,7 @@ let config = {
       column: 'PessoaId',
       type: 'pesquisavel',
       subtipo: 'select-input',
-      operador: 'eq',
+      operator: 'eq',
       // collapsed: true,
       valoresSource: {
         url: '/Pessoas/ObterTodos',

@@ -29,12 +29,12 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   ngAfterViewInit() {
     let filter = this.filter;
 
-    // Se for input, não precisa de tratamento nem nada
+    // If it's 'input', don't need to do anything
     if (filter.subtipo === 'input')
       return;
   }
 
-  /* Quando o subtipo fori 'input' (não é dx), apenas pesquisar após o timeout */
+  // When the subtype is equal to 'input' (it isn't dx), just serarch after the timeout
   onPesquisa(valor) {
 
     clearTimeout(this.pesquisaTimeout);
@@ -51,6 +51,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
   }
 
   // Ao mudar o campo da pesquisa (subtipo == 'input')
+  // When subtype == 'input'
   selecionarCampo(column) {
     this.column = column;
     this.selectFilter(this.filter, {
@@ -59,10 +60,10 @@ export class PesquisavelComponent implements OnInit, OnChanges {
     });
   }
 
-  // Para o dx, quando for pesquisar entre os valores do select
+  // For dx, when it's going to search between the select values 
   filtrarPesquisa(event) {
 
-    // Caso não seja uma letra, não filtrar
+    // If it isn't a letter, dont filter
     if ((event.jQueryEvent.keyCode < 65 || event.jQueryEvent.keyCode > 90) && event.jQueryEvent.keyCode !== 8)
       return;
 
@@ -77,7 +78,6 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
     this.pesquisaTimeout = setTimeout(() => {
       if (source.campoFiltro) {
-        // @todo diferenciar se a busca é odata ou ObterTodos normal
         let filtrar = `&filter=[{"Desc": "${source.campoFiltro}", "Coluna": "${source.campoFiltro}", "Valor": "${valorPesquisa}"}]`;
         this.callbackMontarValores.emit({ filter: filtrar, processId: 'pesquisavel-filtrarPesquisa' });
       }
@@ -91,7 +91,7 @@ export class PesquisavelComponent implements OnInit, OnChanges {
 
     newSelected.antigo = this.filter.column;
 
-    // Caso tenha campo selected, atribuir a column do filter
+    // If there's the selected field, assing to column filter
     if (this.column)
       this.filter.column = this.column;
 

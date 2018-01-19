@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-declare var moment: any;
+declare var moment: any, $: any;
 
 @Component({
   selector: 'app-filter-data',

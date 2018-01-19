@@ -36,7 +36,7 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
 
       // Count the quantity of filters that have default values
       if (filter.values) {
-        filter.values.map(valor => { if (filter.default) this.quantDefaultFilters++; });
+        filter.values.map(valor => { if (valor.default) this.quantDefaultFilters++; });
       } else if (filter.selecionadoSource) {
         this.quantDefaultFilters++;
       }
@@ -90,10 +90,10 @@ export class FiltrosCollapsedHeaderComponent implements OnInit {
     if (!newSelected.value)
       return newSelected;
 
-    if (filter.operator === 'startswith')
+    if (filter.operator === 'startswith') { }
 
-      if (filter.operator === 'eq')
-        newSelected.value = ` ${filter.column} eq ${newSelected.value} `;
+    if (filter.operator === 'eq')
+      newSelected.value = ` ${filter.column} eq ${newSelected.value} `;
 
     return newSelected;
   }

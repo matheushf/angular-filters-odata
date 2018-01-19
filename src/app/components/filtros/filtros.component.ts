@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef, NgZone } fr
 import { Filter } from './interface';
 import { HttpClient } from '@angular/common/http';
 import { PlatformLocation } from '@angular/common';
+import 'rxjs/add/operator/takeWhile';
 
 // abstrair é a arte que faz uma esponja o bob esponja
 

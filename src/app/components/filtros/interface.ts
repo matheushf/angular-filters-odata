@@ -16,7 +16,7 @@ export interface Filter {
 
 export interface TDFiltrosValor {
   desc?: string; // (Opcional, se não informado utiliza valor) Descrição do valor
-  valor: any; // Valor que filtrará o campo
+  value: any; // Valor que filtrará o campo
   default?: boolean; // Define se o valor é o padrão
 }
 

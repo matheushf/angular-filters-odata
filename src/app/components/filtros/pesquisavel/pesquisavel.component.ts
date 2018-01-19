@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+declare var $: any;
 
 @Component({
   selector: 'app-filter-pesquisavel',
   template: require('./pesquisavel.component.html'),
   styles: [require('./pesquisavel.component.scss')]
 })
-export class PesquisavelComponent implements OnInit, OnChanges {
+export class PesquisavelComponent implements OnInit {
 
   @Input('filter') filter: any;
   @Input('valorPadrao') valorPadrao: any;
